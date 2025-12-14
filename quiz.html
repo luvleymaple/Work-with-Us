@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Park Safety Quiz</title>
+  <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Park Safety Quiz</h1>
+    <form id="quizForm">
+      <div id="quiz"></div>
+      <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What should you do if you see broken playground equipment?", a: 2,
+        options: ["Ignore it", "Tell kids to keep playing", "Report it to the proper authorities", "Try to fix it yourself"]
+      },
+      {
+        q: "Why is good lighting important in parks?", a: 1,
+        options: ["It makes trees grow faster", "It helps keep areas safe and visible", "It saves electricity", "It keeps animals away"]
+      },
+      {
+        q: "Which is a safe behavior in parks?", a: 0,
+        options: ["Walking on designated paths", "Climbing fences", "Running in dark areas", "Using broken swings"]
+      },
+      {
+        q: "What should you bring when visiting a park at dusk?", a: 3,
+        options: ["Nothing", "A skateboard", "A loudspeaker", "A flashlight or phone light"]
+      },
+      {
+        q: "Who should you tell if you notice vandalism?", a: 2,
+        options: ["Strangers", "Kids playing nearby", "Local authorities or park staff", "Nobody"]
+      },
+      {
+        q: "Why is it unsafe to leave trash on the ground?", a: 1,
+        options: ["It looks cool", "It attracts pests and creates hazards", "Animals clean it up", "It’s biodegradable"]
+      },
+      {
+        q: "Which area should you avoid at night?", a: 2,
+        options: ["Picnic tables", "Bike racks", "Poorly lit or isolated areas", "Benches"]
+      },
+      {
+        q: "Why is staying hydrated important in parks?", a: 0,
+        options: ["To avoid heat-related illnesses", "To run faster", "It’s required by rules", "To avoid sunburn"]
+      },
+      {
+        q: "What’s the safest way to use park equipment?", a: 1,
+        options: ["Try tricks", "Follow posted instructions", "Jump from high places", "Use when wet"]
+      },
+      {
+        q: "If you’re unsure whether an area is safe, you should...", a: 3,
+        options: ["Go anyway", "Test the surfaces", "Ask a random person", "Stay away and report concerns"]
+      },
+      {
+        q: "Why is it important to stay in visible areas?", a: 0,
+        options: ["Reduces risks and helps others see you", "It’s fashionable", "Makes photos better", "It’s required"]
+      },
+      {
+        q: "Which is a good rule when visiting parks alone?", a: 2,
+        options: ["No need to tell anyone", "Go at night", "Tell someone where you’re going", "Avoid bringing a phone"]
+      },
+      {
+        q: "What should you do if you see a tripping hazard?", a: 1,
+        options: ["Kick it", "Report it to park staff", "Run over it", "Ignore it"]
+      },
+      {
+        q: "What is one sign a park may be unsafe?", a: 3,
+        options: ["Bike racks", "Picnic tables", "Playground rules", "Broken lights and damaged equipment"]
+      },
+      {
+        q: "Why is community reporting important?", a: 2,
+        options: ["It annoys people", "It shuts parks down", "It helps improve and maintain parks", "It replaces park staff"]
+      }
+    ];
+
+    const quizContainer = document.getElementById('quiz');
+
+    questions.forEach((q, index) => {
+      const block = document.createElement('div');
+      block.innerHTML = `
+        <div class="question">${index + 1}. ${q.q}</div>
+        <div class="options">
+          ${q.options
+          .map((opt, i) => `
+              <label>
+                <input type="radio" name="q${index}" value="${i}" /> ${opt}
+              </label>`)
+          .join('')}
+        </div>
+      `;
+      quizContainer.appendChild(block);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const answer = document.querySelector(`input[name='q${i}']:checked`);
+        if (answer && parseInt(answer.value) === q.a) score++;
+      });
+      document.getElementById('result').textContent = `You scored ${score} out of 15!`;
+    }
+  </script>
+</body>
+
+</html>
